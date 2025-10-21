@@ -22,6 +22,8 @@ function GptChatApp({ isOpen }: GptChatAppProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  console.log(openAiApiKey, openAiModel)
+
   useEffect(() => {
     if (!isOpen) {
       setMessages([])
