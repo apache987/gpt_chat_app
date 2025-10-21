@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import env from '../config/env'
 
 type ChatRole = 'user' | 'assistant' | 'system'
 
@@ -14,6 +13,8 @@ interface GptChatAppProps {
 }
 
 const createId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+const openAiApiKey = import.meta.env.VITE_OPENAI_API_KEY ?? ''
+const openAiModel = import.meta.env.VITE_OPENAI_MODEL ?? 'gpt-3.5-turbo'
 
 function GptChatApp({ isOpen }: GptChatAppProps) {
   const [input, setInput] = useState('')
@@ -47,7 +48,7 @@ function GptChatApp({ isOpen }: GptChatAppProps) {
     setError(null)
     setIsLoading(true)
 
-    if (!env.openAiApiKey) {
+    if (!openAiApiKey) {
       const message = 'OpenAI APIキーが設定されていません。'
       setMessages((prev) => [
         ...prev,
@@ -63,10 +64,10 @@ function GptChatApp({ isOpen }: GptChatAppProps) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${env.openAiApiKey}`,
+          Authorization: `Bearer ${openAiApiKey}`,
         },
         body: JSON.stringify({
-          model: env.openAiModel,
+          model: openAiModel,
           messages: nextMessages.map(({ role, content }) => ({ role, content })),
         }),
       })
