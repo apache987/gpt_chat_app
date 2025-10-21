@@ -13,8 +13,8 @@ interface GptChatAppProps {
 }
 
 const createId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
-const openAiApiKey = import.meta.env.OPENAI_API_KEY! ?? ''
-const openAiModel = import.meta.env.OPENAI_MODEL! ?? 'gpt-3.5-turbo'
+const openAiApiKey = import.meta.env.VITEOPENAI_API_KEY! ?? ''
+const openAiModel = import.meta.env.VITE_OPENAI_MODEL! ?? 'gpt-3.5-turbo'
 
 function GptChatApp({ isOpen }: GptChatAppProps) {
   const [input, setInput] = useState('')
